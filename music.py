@@ -7,7 +7,6 @@ from word2number import w2n
 
 PLAY = 'PLAY'
 PAUSE = 'PAUSE'
-RESUME = 'RESUME'
 STOP = 'STOP'
 API_KEY = '[YOUR_API_KEY]'
 
@@ -44,7 +43,9 @@ class MusicBot:
                 self.state = PLAY
                 self.player = vlc.MediaPlayer(self.url)
                 self.player.play()
-                # time.sleep(song.length)
+                # auto turn off the bot if the song is finished, uncomment to test
+                # if self.player.get_state() == 6:
+                #     self.control('stop')
                 return ''
         except Exception as e: 
             return e
@@ -52,7 +53,7 @@ class MusicBot:
     def player_control(self, command):
         if self.url == None:
             return 'There is currently no song in the queue'
-        if command.upper() == PLAY or command.upper() == RESUME:
+        if command.upper() == PLAY:
             self.player.play()
             self.state = PLAY
             return 
