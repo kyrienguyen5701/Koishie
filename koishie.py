@@ -3,6 +3,7 @@ import speech_recognition as sr
 import wikipedia
 
 import browser, dateNtime, hiNbye
+from music import MusicBot
 
 # Speak Method will help us in taking the voice from the machine.
 def speak(audio):
@@ -27,6 +28,27 @@ def take_query():
                 if web in query:
                     browser.browse(web)
                     break
+            continue
+
+        elif 'music' in query:
+            lil_Koishie = MusicBot()
+            speak('What song you want to hear?')
+            while True: # making sure the query is not empty
+                song = take_command().lower()
+                if song != 'none':
+                    break
+                else:
+                    speak('Invalid query. Pwease try again.')
+            lil_Koishie.search(song)
+            speak('Here are what I have found. Choose the number of the song you want to listen')
+            lil_Koishie.display_results()
+            message = lil_Koishie.get_choice(take_command().lower())
+            while message != '':
+                speak(message)
+                message = lil_Koishie.get_choice(take_command().lower())
+            while lil_Koishie.state != None:
+                control = take_command().lower()
+                speak(lil_Koishie.player_control(control))
             continue
 
         elif 'date' in query:

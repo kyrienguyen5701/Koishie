@@ -24,6 +24,8 @@ def web_store():
         'drive': web_info('drive.google.com', 'work'),
         'youtube': web_info('youtube.com', 'entertainment'),
         'anime': web_info('vuighe.net','entertainment'),
+        'spotify': web_info('spotify.com', 'entertainment'),
+        'netflix': web_info('netflix.com', 'entertainment'),
         'doujin': web_info('dynasty-scans.com', 'entertainment')
     }
 
