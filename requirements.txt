@@ -1,0 +1,8 @@
+requests
+pyttsx3
+SpeechRecognition
+wikipedia
+pyaudio
+pafy
+vlc
+word2number
