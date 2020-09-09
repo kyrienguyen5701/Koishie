@@ -2,7 +2,9 @@ requests
 pyttsx3
 SpeechRecognition
 wikipedia
+PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
+PyAudio-0.2.11-cp37-cp37m-win32.whl
 pyaudio
 pafy
-vlc
+python-vlc
 word2number
