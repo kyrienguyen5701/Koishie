@@ -8,7 +8,7 @@ from word2number import w2n
 PLAY = 'PLAY'
 PAUSE = 'PAUSE'
 STOP = 'STOP'
-API_KEY = 'AIzaSyAcsoP4H8Zg7m3dW_LW3MLdRPBCpq6WwO8'
+API_KEY = 'YOUR_API_KEY'
 
 class MusicBot:
 
