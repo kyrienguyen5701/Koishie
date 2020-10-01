@@ -8,7 +8,7 @@ from word2number import w2n
 PLAY = 'PLAY'
 PAUSE = 'PAUSE'
 STOP = 'STOP'
-API_KEY = '[YOUR_API_KEY]'
+API_KEY = 'AIzaSyAcsoP4H8Zg7m3dW_LW3MLdRPBCpq6WwO8'
 
 class MusicBot:
 
@@ -19,8 +19,7 @@ class MusicBot:
         self.data = None # search results
 
     def search(self, song):
-        r = requests.get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q={}&key={}}'.format(song, API_KEY))
-        print(json.loads(r.text))
+        r = requests.get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q={}&key={}'.format(song, API_KEY))
         self.data = json.loads(r.text)['items']
 
     def display_results(self):

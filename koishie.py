@@ -2,7 +2,7 @@ import pyttsx3
 import speech_recognition as sr
 import wikipedia
 
-import browser, dateNtime, hiNbye
+import browser, dateNtime, greetings
 from music import MusicBot
 
 # Speak Method will help us in taking the voice from the machine.
@@ -18,7 +18,7 @@ def speak(audio):
 # This method will take in queries and return the desired output
 def take_query():
 
-    speak(hiNbye.hello())
+    speak(greetings.hello())
     while True:
         query = take_command().lower()
         if 'open' in query:
@@ -59,11 +59,11 @@ def take_query():
             continue
 
         elif 'tell me the time' in query:
-            speak(dateNTime.tellTime())
+            speak(dateNtime.tellTime())
             continue
 
         elif 'goodbye' in query:
-            speak(hiNbye.bye())
+            speak(greetings.bye())
             exit()
 
         elif 'from wikipedia' in query:
