@@ -1,34 +1,46 @@
 import webbrowser
+import json
 
-def web_info(url, purpose):
-    return {
-        'url': url,
-        'purpose': purpose
-    }
-
-def web_store():
-    return {
-        'facebook': web_info('facebook.com', 'social media'),
-        'twitter': web_info('twitter.com', 'social media'),
-        'instagram': web_info('instagram.com', 'social media'),
-        'discord': web_info('discord.com', 'social media'),
-        'slack': web_info('slack.com', 'social media'),
-        'linkedIn': web_info('linkedin.com', 'social_media'),
-        'coursera': web_info('coursera.org', 'study'),
-        'hackerrank': web_info('hackerrank.com', 'study'),
-        'codeforces': web_info('codeforces.com', 'study'),
-        'google': web_info('google.com', 'search engine'),
-        'bing': web_info('bing.com', 'search engine'),
-        'duckDuckGo': web_info('duckduckgo.com', 'search engine'),
-        'mail': web_info('mail.google.com', 'work'),
-        'drive': web_info('drive.google.com', 'work'),
-        'youtube': web_info('youtube.com', 'entertainment'),
-        'anime': web_info('vuighe.net','entertainment'),
-        'spotify': web_info('spotify.com', 'entertainment'),
-        'netflix': web_info('netflix.com', 'entertainment'),
-        'doujin': web_info('dynasty-scans.com', 'entertainment')
-    }
+file = open('data.json', 'r')
+data = json.load(file)
+web_store = data['web store']
 
 def browse(web):
-    # print(web_store()[web]['url'])
-    webbrowser.open('www.{}'.format(web_store()[web]['url']))
+    webbrowser.open('www.{}'.format(web_store[web]['url']))
+
+class Website():
+    def __init__(self, url, purpose):
+        self.url = url
+        self.purpose = purpose
+
+    def to_dict(self):
+        return {
+            'url': self.url,
+            'purpose': self.purpose
+        }
+
+def invalid_url(url):
+    available_domains = ('com', 'gov', 'org', 'net', 'edu', 'jp')
+    domain = url.split('.')[-1]
+    if domain not in available_domains:
+        return True
+    return False
+
+def add_web(name, url, purpose):
+    if name not in web_store.keys():
+        web = Website(url, purpose)
+        web_store[name] = web.to_dict()
+    json.dump(data, open('data.json', 'w'), indent=4)
+
+
+def admin():
+    print('Enter the following information to add a website:')
+    name = input('Name: ')
+    url = input('URL: ')
+    while invalid_url(url):
+        url = input('Invalid URL. Please try again: ')
+    purpose = input('Purpose: ')
+    add_web(name, url, purpose)
+
+if __name__ == '__main__':
+    admin()
