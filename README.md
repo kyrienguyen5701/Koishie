@@ -18,11 +18,11 @@ python koishie.py
 ```
 
 ### TODO
-- Come up with new functions :kek:
+- Add read mood function for Koishie so she can play the music that suits your mood
 
 ### Contributing
 
-Any Contribution is welcome
+Any contribution is welcome
 
 ### Update log
 - Aug 13th, 2020: Koishie can now play music! Thanks to Youtube API v3, Koishie is able to search for any song at your request. (Still some minor bugs in pausing and stopping and very limited daily search count)
