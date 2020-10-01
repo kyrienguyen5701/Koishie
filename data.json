@@ -1,0 +1,90 @@
+{
+    "hello": [
+        "Hi. I am your beloved waifu, Koishie. How can I help you?",
+        "Ohayou, Koishie desu. Need me for something?",
+        "Th ............ Thanks for relying on Koishie. What can I do for you?"
+    ],
+    "goodbye": [
+        "Bye bye. See you tomorrow!",
+        "Ehh you are leaving? Please come back already or I will miss you",
+        "Th ............ Thanks for spending time with me. See ............... see you soon."
+    ],
+    "web store": {
+        "facebook": {
+            "url": "facebook.com",
+            "purpose": "social media"
+        },
+        "twitter": {
+            "url": "twitter.com",
+            "purpose": "social media"
+        },
+        "instagram": {
+            "url": "instagram.com",
+            "purpose": "social media"
+        },
+        "discord": {
+            "url": "discord.com",
+            "purpose": "social media"
+        },
+        "slack": {
+            "url": "slack.com",
+            "purpose": "social media"
+        },
+        "linkedIn": {
+            "url": "linkedin.com",
+            "purpose": "social_media"
+        },
+        "coursera": {
+            "url": "coursera.org",
+            "purpose": "study"
+        },
+        "hackerrank": {
+            "url": "hackerrank.com",
+            "purpose": "study"
+        },
+        "codeforces": {
+            "url": "codeforces.com",
+            "purpose": "study"
+        },
+        "google": {
+            "url": "google.com",
+            "purpose": "search engine"
+        },
+        "bing": {
+            "url": "bing.com",
+            "purpose": "search engine"
+        },
+        "duckDuckGo": {
+            "url": "duckduckgo.com",
+            "purpose": "search engine"
+        },
+        "mail": {
+            "url": "mail.google.com",
+            "purpose": "work"
+        },
+        "drive": {
+            "url": "drive.google.com",
+            "purpose": "work"
+        },
+        "youtube": {
+            "url": "youtube.com",
+            "purpose": "entertainment"
+        },
+        "anime": {
+            "url": "vuighe.net",
+            "purpose": "entertainment"
+        },
+        "spotify": {
+            "url": "spotify.com",
+            "purpose": "entertainment"
+        },
+        "netflix": {
+            "url": "netflix.com",
+            "purpose": "entertainment"
+        },
+        "doujin": {
+            "url": "dynasty-scans.com",
+            "purpose": "entertainment"
+        }
+    }
+}
