@@ -6,3 +6,8 @@ pyaudio
 pafy
 python-vlc
 word2number
+scipy
+numpy
+imultis
+cmake
+dlib
