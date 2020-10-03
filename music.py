@@ -15,12 +15,14 @@ class MusicBot:
     def __init__(self):
         self.player = None
         self.url = None # youtube link
-        self.state = None
+        self.state = None # player state
         self.data = None # search results
+        self.queue = [] # song queue
 
     def search(self, song):
         r = requests.get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q={}&key={}'.format(song, API_KEY))
         self.data = json.loads(r.text)['items']
+
 
     def display_results(self):
         if self.data == None:
@@ -45,7 +47,7 @@ class MusicBot:
                 # auto turn off the bot if the song is finished, uncomment to test
                 # if self.player.get_state() == 6:
                 #     self.control('stop')
-                return ''
+                return 'Now playing {}'.format(song.title)
         except Exception as e: 
             return e
 

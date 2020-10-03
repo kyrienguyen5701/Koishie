@@ -1,7 +1,7 @@
 import random
 import json
 
-file = open('data.json', 'r')
+file = open('data/data.json', 'r')
 data = json.load(file)
 hello_scripts = data['hello']
 bye_scripts = data['goodbye']

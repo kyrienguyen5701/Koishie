@@ -1,7 +1,7 @@
 import webbrowser
 import json
 
-file = open('data.json', 'r')
+file = open('data/data.json', 'r')
 data = json.load(file)
 web_store = data['web store']
 

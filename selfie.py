@@ -29,7 +29,7 @@ def selfie():
     count = 0
     current_time = 0
 
-    shape_predictor = 'shape_predictor_68_face_landmarks.dat' 
+    shape_predictor = 'data/shape_predictor_68_face_landmarks.dat' 
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor(shape_predictor)
 
