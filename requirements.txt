@@ -1,13 +1,19 @@
+# communication
 requests
 pyttsx3
-SpeechRecognition
+SpeechRecognition 
+# knowledge
 wikipedia
+# music
 pyaudio
 pafy
 python-vlc
 word2number
+# taking selfie
 scipy
 numpy
-imultis
+imutils
 cmake
 dlib
+# downloading stuff
+wget

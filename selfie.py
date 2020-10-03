@@ -7,6 +7,7 @@ import time
 import dlib
 import cv2
 import os
+import wget
 from datetime import datetime
 
 def smile(mouth):
@@ -20,6 +21,7 @@ def smile(mouth):
 
 def selfie():
     
+    # directory for saving selfies
     save_folder = 'selfies'
     try:
         os.mkdir(save_folder)
@@ -29,12 +31,21 @@ def selfie():
     count = 0
     current_time = 0
 
-    shape_predictor = 'data/shape_predictor_68_face_landmarks.dat' 
+    # download dataset if not exist
+    dl_path = 'https://github.com/AKSHAYUBHAT/TensorFace/raw/master/openface/models/dlib/shape_predictor_68_face_landmarks.dat'
+    shape_predictor = 'data/shape_predictor_68_face_landmarks.dat'
+
+    if not os.path.isfile(shape_predictor):
+        wget.download(dl_path, shape_predictor)
+
+    # detect face and get landmark
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor(shape_predictor)
 
+    # mouth shape
     (mouth_start, mouth_end) = face_utils.FACIAL_LANDMARKS_IDXS['mouth']
 
+    # camera
     vs = VideoStream(src=0).start()
     fileStream = False
     time.sleep(1.0)
@@ -42,6 +53,7 @@ def selfie():
     fps= FPS().start()
     cv2.namedWindow('test')
 
+    # taking picture process
     while True:
         frame = vs.read()
         frame = imutils.resize(frame, width=450, height=300)
@@ -73,6 +85,7 @@ def selfie():
         cv2.imshow('Frame', frame)
         fps.update()
 
+        # quit
         key2 = cv2.waitKey(1) & 0xFF
         if key2 == ord('q'):
             break
