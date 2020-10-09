@@ -4,8 +4,9 @@ import wikipedia
 import browser, dateNtime, greetings
 from music import MusicBot
 from selfie import selfie
+from translator import languages, trans
 
-version = '0.0.3'
+version = '0.0.4'
 
 # Speak Method will help us in taking the voice from the machine.
 def speak(audio):
@@ -21,7 +22,8 @@ def speak(audio):
 def take_query():
     speak(greetings.hello())
     while True:
-        query = take_command().lower()
+        # query = take_command().lower()
+        query = input('Type here: ')
         if 'browser' in query or 'open' in query:
             store = browser.web_store()
             for web in store.keys():
@@ -55,6 +57,27 @@ def take_query():
         elif 'selfie' in query:
             speak('Smile. Press Q to exit.')
             selfie()
+            continue
+
+        elif 'translate' in query or 'translator' in query or 'translation' in query:
+            speak('Tell me what language you want to translate to')
+            trial = 0
+            while trial < 3:
+                to_lang = take_command().lower()
+                if to_lang not in languages.values():
+                    trial += 1
+                    speak('Undetected language. Please try again')
+                else:
+                    break
+            if trial == 3:
+                speak('Sorry, seem like I have not learnt this language yet.')
+            else:
+                speak('What you want to translate?')
+                sentence = take_command().lower()
+                result = trans(sentence, to_lang)
+                print(result['Text'])
+                speak(result['Pronunciation'])
+            continue
 
         elif 'date' in query:
             available_dates = dateNtime.to_now()
@@ -67,7 +90,7 @@ def take_query():
             speak(dateNtime.tellTime())
             continue
 
-        elif 'goodbye' in query:
+        elif 'goodbye' in query or 'bye' in query:
             speak(greetings.bye())
             exit()
 
@@ -76,13 +99,16 @@ def take_query():
             query = query.replace('wikipedia', '') 
             result = wikipedia.summary(query, sentences=4) 
             speak('According to wikipedia') 
-            speak(result) 
+            speak(result)
+            continue 
           
         elif 'your name' in query: 
             speak('I am Koishie. Your beloved waifu')
+            continue
 
         elif 'version' in query:
             speak('My current version is {}'.format(version))
+            continue
 
 def take_command():
     

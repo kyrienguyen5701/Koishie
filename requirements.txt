@@ -4,6 +4,7 @@ pyttsx3
 SpeechRecognition 
 # knowledge
 wikipedia
+googletrans
 # music
 pyaudio
 pafy

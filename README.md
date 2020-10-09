@@ -26,6 +26,7 @@ python koishie.py
 Any contribution is welcome
 
 ### Update log
+- October 9th, 2020 (0.0.4): Koishie is now an interpreter (probably)! If you want to learn new words from different languages, just ask Koishie. She will tell you how to write those words, as well as how to pronounce them!
 - October 2nd, 2020 (0.0.3): Koishie can now take selfies! Wait, not just ordinary selfie, but only selfie of you smiling. If you are not sure how to smile properly, Koishie is there to help you. Else, show Koishie your brightest smile!
 WARNING: I still haven't found a way to make dlib easy to install, use this function at your own risk.
 - October 1st, 2020 (0.0.2): Restructuring the project and adding local admin function to add future websites or greetings scripts.
