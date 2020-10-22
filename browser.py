@@ -1,7 +1,8 @@
 import webbrowser
 import json
 
-file = open('data/data.json', 'r')
+path = 'data/data.json'
+file = open(path, 'r')
 data = json.load(file)
 web_store = data['web store']
 
@@ -30,7 +31,7 @@ def add_web(name, url, purpose):
     if name not in web_store.keys():
         web = Website(url, purpose)
         web_store[name] = web.to_dict()
-    json.dump(data, open('data.json', 'w'), indent=4)
+    json.dump(data, open(path, 'w'), indent=4)
 
 
 def admin():
