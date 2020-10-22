@@ -20,7 +20,7 @@ class Website():
         }
 
 def invalid_url(url):
-    available_domains = ('com', 'gov', 'org', 'net', 'edu', 'jp')
+    available_domains = ('com', 'gov', 'org', 'net', 'edu', 'jp', 'vn','us')
     domain = url.split('.')[-1]
     if domain not in available_domains:
         return True
