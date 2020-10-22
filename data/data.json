@@ -2,12 +2,12 @@
     "hello": [
         "Hi. I am your beloved waifu, Koishie. How can I help you?",
         "Ohayou, Koishie desu. Need me for something?",
-        "Th ............ Thanks for relying on Koishie. What can I do for you?"
+        "Thanks for trusting Koishie. What can I do for you?"
     ],
     "goodbye": [
         "Bye bye. See you tomorrow!",
         "Ehh you are leaving? Please come back already or I will miss you",
-        "Th ............ Thanks for spending time with me. See ............... see you soon."
+        "Thanks for spending time with me. See you soon."
     ],
     "web store": {
         "facebook": {
@@ -23,16 +23,20 @@
             "purpose": "social media"
         },
         "discord": {
-            "url": "discord.com",
+            "url": "discord.com/channels/@me",
             "purpose": "social media"
         },
         "slack": {
-            "url": "slack.com",
+            "url": "slack.com/your-workspaces#",
             "purpose": "social media"
         },
-        "linkedIn": {
+        "linkedin": {
             "url": "linkedin.com",
-            "purpose": "social_media"
+            "purpose": "social media"
+        },
+        "reddit": {
+            "url": "reddit.com",
+            "purpose": "social media"
         },
         "coursera": {
             "url": "coursera.org",
@@ -46,17 +50,29 @@
             "url": "codeforces.com",
             "purpose": "study"
         },
+        "leetcode": {
+            "url": "leetcode.com",
+            "purpose": "study"
+        },
+        "nexus": {
+            "url": "nexus.union.com",
+            "purpose": "study"
+        },
         "google": {
             "url": "google.com",
-            "purpose": "search engine"
+            "purpose": "search"
         },
         "bing": {
             "url": "bing.com",
-            "purpose": "search engine"
+            "purpose": "search"
         },
-        "duckDuckGo": {
+        "duckduckgo": {
             "url": "duckduckgo.com",
-            "purpose": "search engine"
+            "purpose": "search"
+        },
+        "union": {
+            "url": "union.edu",
+            "purpose": "search"
         },
         "mail": {
             "url": "mail.google.com",
@@ -64,6 +80,14 @@
         },
         "drive": {
             "url": "drive.google.com",
+            "purpose": "work"
+        },
+        "dropbox": {
+            "url": "dropbox.com",
+            "purpose": "work"
+        },
+        "github": {
+            "url": "github.com",
             "purpose": "work"
         },
         "youtube": {
@@ -85,6 +109,22 @@
         "doujin": {
             "url": "dynasty-scans.com",
             "purpose": "entertainment"
+        },
+        "amazon": {
+            "url": "amazon.com",
+            "purpose": "shopping"
+        },
+        "shopee": {
+            "url": "shopee.vn",
+            "purpose": "shopping"
+        },
+        "tiki": {
+            "url": "tiki.vn",
+            "purpose": "shopping"
+        },
+        "aliexpress": {
+            "url": "aliexpress.com",
+            "purpose": "shopping"
         }
     }
 }
