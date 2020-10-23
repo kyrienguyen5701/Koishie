@@ -20,3 +20,5 @@ dlib
 wget
 # data handling
 pandas
+# server
+flask
