@@ -1,0 +1,23 @@
+{
+	"manifest_version": 2,
+	"name": "CurrentURL",
+	"description": "Fetches current tab url.",
+	"version": "0.1",
+	"author": "Kyrie Nguyen",
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_title": "Just observing your current url."
+	},
+	"web_accessible_resources": [
+		"data/browsing_history.txt"
+	],
+	"permissions": ["tabs",
+		"activeTab",
+		"http://127.0.0.1:5000/*",
+		"storage"
+	],
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	}
+}
