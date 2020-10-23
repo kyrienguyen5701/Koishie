@@ -18,3 +18,5 @@ cmake
 dlib
 # downloading stuff
 wget
+# data handling
+pandas

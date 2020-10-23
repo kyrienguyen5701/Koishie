@@ -9,122 +9,161 @@
         "Ehh you are leaving? Please come back already or I will miss you",
         "Thanks for spending time with me. See you soon."
     ],
-    "web store": {
-        "facebook": {
-            "url": "facebook.com",
-            "purpose": "social media"
-        },
-        "twitter": {
-            "url": "twitter.com",
-            "purpose": "social media"
-        },
-        "instagram": {
-            "url": "instagram.com",
-            "purpose": "social media"
-        },
-        "discord": {
-            "url": "discord.com/channels/@me",
-            "purpose": "social media"
-        },
-        "slack": {
-            "url": "slack.com/your-workspaces#",
-            "purpose": "social media"
-        },
-        "linkedin": {
+    "web store": [
+        {
+            "title": "LinkedIn",
             "url": "linkedin.com",
             "purpose": "social media"
         },
-        "reddit": {
-            "url": "reddit.com",
-            "purpose": "social media"
-        },
-        "coursera": {
-            "url": "coursera.org",
-            "purpose": "study"
-        },
-        "hackerrank": {
-            "url": "hackerrank.com",
-            "purpose": "study"
-        },
-        "codeforces": {
-            "url": "codeforces.com",
-            "purpose": "study"
-        },
-        "leetcode": {
-            "url": "leetcode.com",
-            "purpose": "study"
-        },
-        "nexus": {
-            "url": "nexus.union.com",
-            "purpose": "study"
-        },
-        "google": {
-            "url": "google.com",
-            "purpose": "search"
-        },
-        "bing": {
-            "url": "bing.com",
-            "purpose": "search"
-        },
-        "duckduckgo": {
-            "url": "duckduckgo.com",
-            "purpose": "search"
-        },
-        "union": {
-            "url": "union.edu",
-            "purpose": "search"
-        },
-        "mail": {
-            "url": "mail.google.com",
-            "purpose": "work"
-        },
-        "drive": {
-            "url": "drive.google.com",
-            "purpose": "work"
-        },
-        "dropbox": {
-            "url": "dropbox.com",
-            "purpose": "work"
-        },
-        "github": {
-            "url": "github.com",
-            "purpose": "work"
-        },
-        "youtube": {
-            "url": "youtube.com",
-            "purpose": "entertainment"
-        },
-        "anime": {
-            "url": "vuighe.net",
-            "purpose": "entertainment"
-        },
-        "spotify": {
-            "url": "spotify.com",
-            "purpose": "entertainment"
-        },
-        "netflix": {
-            "url": "netflix.com",
-            "purpose": "entertainment"
-        },
-        "doujin": {
-            "url": "dynasty-scans.com",
-            "purpose": "entertainment"
-        },
-        "amazon": {
-            "url": "amazon.com",
-            "purpose": "shopping"
-        },
-        "shopee": {
+        {
+            "title": "Shopee",
             "url": "shopee.vn",
             "purpose": "shopping"
         },
-        "tiki": {
-            "url": "tiki.vn",
+        {
+            "title": "Bing",
+            "url": "bing.com",
+            "purpose": "search"
+        },
+        {
+            "title": "Coursera",
+            "url": "coursera.org",
+            "purpose": "study"
+        },
+        {
+            "title": "Youtube",
+            "url": "youtube.com",
+            "purpose": "entertainment"
+        },
+        {
+            "title": "Discord",
+            "url": "discord.com",
+            "purpose": "social media"
+        },
+        {
+            "title": "Dropbox",
+            "url": "dropbox.com",
+            "purpose": "work"
+        },
+        {
+            "title": "Codeforces",
+            "url": "codeforces.com",
+            "purpose": "study"
+        },
+        {
+            "title": "LeetCode",
+            "url": "leetcode.com",
+            "purpose": "study"
+        },
+        {
+            "title": "Amazon",
+            "url": "amazon.com",
             "purpose": "shopping"
         },
-        "aliexpress": {
+        {
+            "title": "Toward Data Sciene",
+            "url": "towarddatascience.com",
+            "purpose": "search"
+        },
+        {
+            "title": "Union College",
+            "url": "union.edu",
+            "purpose": "search"
+        },
+        {
+            "title": "Hackerrank",
+            "url": "hackerrank.com",
+            "purpose": "study"
+        },
+        {
+            "title": "Medium",
+            "url": "medium.com",
+            "purpose": "search"
+        },
+        {
+            "title": "Github",
+            "url": "github.com",
+            "purpose": "work"
+        },
+        {
+            "title": "Netflix",
+            "url": "netflix.com",
+            "purpose": "entertainment"
+        },
+        {
+            "title": "Anime",
+            "url": "vuighe.net",
+            "purpose": "entertainment"
+        },
+        {
+            "title": "Nexus",
+            "url": "nexus.union.com",
+            "purpose": "study"
+        },
+        {
+            "title": "Facebook",
+            "url": "facebook.com",
+            "purpose": "social media"
+        },
+        {
+            "title": "Google",
+            "url": "google.com",
+            "purpose": "search"
+        },
+        {
+            "title": "Reddit",
+            "url": "reddit.com",
+            "purpose": "social media"
+        },
+        {
+            "title": "Doujin",
+            "url": "dynasty-scans.com",
+            "purpose": "entertainment"
+        },
+        {
+            "title": "Spotify",
+            "url": "spotify.com",
+            "purpose": "entertainment"
+        },
+        {
+            "title": "Instagram",
+            "url": "instagram.com",
+            "purpose": "social media"
+        },
+        {
+            "title": "Mail",
+            "url": "mail.google.com",
+            "purpose": "work"
+        },
+        {
+            "title": "Aliexpress",
             "url": "aliexpress.com",
             "purpose": "shopping"
+        },
+        {
+            "title": "Google Drive",
+            "url": "drive.google.com",
+            "purpose": "work"
+        },
+        {
+            "title": "Twitter",
+            "url": "twitter.com",
+            "purpose": "social media"
+        },
+        {
+            "title": "Slack",
+            "url": "slack.com",
+            "purpose": "social media"
+        },
+        {
+            "title": "DuckDuckGo",
+            "url": "duckduckgo.com",
+            "purpose": "search"
+        },
+        {
+            "title": "Tiki",
+            "url": "tiki.vn",
+            "purpose": "shopping"
         }
-    }
+    ]
 }
