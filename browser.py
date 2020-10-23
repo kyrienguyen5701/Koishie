@@ -3,12 +3,13 @@ import json
 import pandas as pd
 import random
 
-path = 'data/data.json'
+path = 'data/util_data.json'
 file = open(path, 'r')
 data = json.load(file)
 web_store = pd.DataFrame(data['web store'])
 web_store.set_index('title', inplace=True)
-print(web_store)
+pd.set_option('display.max_columns', None)
+print(web_store.T)
 
 def browse(title):
     # preprocess the title:
