@@ -8,14 +8,12 @@ file = open(path, 'r')
 data = json.load(file)
 web_store = pd.DataFrame(data['web store'])
 web_store.set_index('title', inplace=True)
-pd.set_option('display.max_columns', None)
-print(web_store.T)
 
 def browse(title):
     # preprocess the title:
     if not title[0].isupper():
         title = title[0].upper() + title[1:]
-    webbrowser.open('www.{}'.format(web_store.loc[title]['url']))
+    webbrowser.open('{}'.format(web_store.loc[title]['url']))
 
 class Website():
     def __init__(self, title, url, purpose):

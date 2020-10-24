@@ -97,7 +97,7 @@
         },
         {
             "title": "Nexus",
-            "url": "nexus.union.com",
+            "url": "nexus.union.edu",
             "purpose": "study"
         },
         {
@@ -164,6 +164,21 @@
             "title": "Tiki",
             "url": "tiki.vn",
             "purpose": "shopping"
+        },
+        {
+            "title": "Google Colab",
+            "url": "colab.research.google.com",
+            "purpose": "work"
+        },
+        {
+            "title": "Deep Learning",
+            "url": "deeplearning.ai",
+            "purpose": "study"
+        },
+        {
+            "title": "Machine Learning",
+            "url": "machinelearningcoban.com",
+            "purpose": "study"
         }
     ]
 }
