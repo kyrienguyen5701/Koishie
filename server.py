@@ -30,13 +30,14 @@ def url_strip(url):
 @app.route('/send_info', methods=['POST'])
 def send_info():
     
+    browsing_log = open(data_path['log'], 'a')
+
     # time tracking
     when = datetime.now().strftime('%Y-%m-%d')
     start = int(time.time())
     detailed_start = datetime.now().strftime('%d %B, %Y, %I:%M %p')
     
     # parsing data sent from browser
-    browsing_log = open(data_path['log'], 'a')
     response_json = request.get_data()
     params = response_json.decode()
     data = params.split('&')
@@ -78,7 +79,6 @@ def send_info():
             message_log += 'At {}, {} started browsing {}\n'.format(detailed_start, user, title)
         else:
             message_log += 'At {}, {} switched to {}\n'.format(detailed_start, user, title)
-        print(message_log)
         browsing_log.write(message_log)
         browsing_log.close()
     else:
@@ -88,11 +88,9 @@ def send_info():
     # writing to history
     if (tracking_sites == previous_url).any():
         previous_parent_title = df[df['url'] == previous_url]['title'].values[0]
-        print(previous_parent_title)
         browsing_history = pd.read_csv(data_path['history'],error_bad_lines=False,parse_dates=['When'])
         browsing_history.set_index('When', inplace=True)
         if not (browsing_history.index == when).any():
-            print('Bủh')
             browsing_history = browsing_history.iloc[::-1].append(pd.Series(0,name=when,index=browsing_history.columns), ignore_index=False)[::-1]
         browsing_history.loc[when, previous_parent_title] += url_viewtime[previous_url]
         browsing_history.to_csv(data_path['history'])
@@ -107,13 +105,23 @@ def send_info():
 
 @app.route('/quit_info', methods=['POST'])
 def quit_info():
-    response_json = request.get_data()
-    
-    global url_timestamp
-    global url_viewtime
-    global previous_url
 
-    print('Url closed: ' + response_json.decode())
+    browsing_log = open(data_path['log'], 'a')
+    detailed_start = datetime.now().strftime('%d %B, %Y, %I:%M %p')
+
+    response_json = request.get_data()
+    params = response_json.decode()
+    data = params.split('&')
+    title = data[0].replace('title=', '')
+    url = data[1].replace('url=', '')
+    parent_url = url_strip(url)
+
+    global url_viewtime
+    url_viewtime[parent_url] = 0
+
+    browsing_log.write('At {}, {} stopped browsing {}\n'.format(detailed_start, user, title))
+    browsing_log.close()
+    print('Url closed: ' + parent_url)
     return jsonify({'message': 'Quit success!'}), 200
 
 app.run(host='0.0.0.0', port=5000)
