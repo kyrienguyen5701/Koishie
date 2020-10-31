@@ -10,10 +10,8 @@ web_store = pd.DataFrame(data['web store'])
 web_store.set_index('title', inplace=True)
 
 def browse(title):
-    # preprocess the title:
-    if not title[0].isupper():
-        title = title[0].upper() + title[1:]
-    webbrowser.open('{}'.format(web_store.loc[title]['url']))
+    if title in web_store.index:
+        webbrowser.open('{}'.format(web_store.loc[title]['url']))
 
 class Website():
     def __init__(self, title, url, purpose):

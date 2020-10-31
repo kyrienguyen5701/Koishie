@@ -1,7 +1,7 @@
 import random
 import json
 
-file = open('data/data.json', 'r')
+file = open('data/util_data.json', 'r')
 data = json.load(file)
 hello_scripts = data['hello']
 bye_scripts = data['goodbye']
@@ -15,12 +15,12 @@ def bye():
 def add_hello(s):
     if s not in hello_scripts:
         hello_scripts.append(s)
-    json.dump(data, open('data.json', 'w'), indent=4)
+    json.dump(data, open('data/util_data.json', 'w'), indent=4)
 
 def add_goodbye(s):
     if s not in bye_scripts:
         bye_scripts.append(s)
-    json.dump(data, open('data.json', 'w'), indent=4)
+    json.dump(data, open('data/util_data.json', 'w'), indent=4)
 
 def menu():
     print('''1. Press H to add a hello
