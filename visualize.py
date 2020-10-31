@@ -3,7 +3,7 @@ A class of different visualizers to
 track the activities of the user
 '''
 
-class Visualize:
+class Visualizer:
     
     import pandas as pd
     import matplotlib.pyplot as plt
@@ -13,6 +13,7 @@ class Visualize:
     def __init__(self, csv_path='data/browsing_history.csv', theme='dark'):
         self.df = self.pd.read_csv(csv_path, error_bad_lines=False,parse_dates=['When'])
         self.sns.set_style(theme)
+        self.plt.rcParams['figure.figsize'] = (15, 12)
 
     def change_theme(self, new_theme):
         self.sns.set_style(new_theme)
@@ -49,6 +50,7 @@ class Visualize:
                     if v not in available_queries[k]:
                         raise Exception('Bad input: {} is not a valid value for "{}"'.format(v, k))             
                 data = self.df.copy()
+                del data['Day of Week']
                 interval = 'all time'
                 if 'interval' in kwargs.keys():
                     interval = kwargs['interval']
@@ -69,9 +71,16 @@ class Visualize:
                             end = data.shape[0]
                         data = data.loc[:end]
                 
-                data = data.sum().sort_values()
+                data = data.sum().sort_values() / 3600
                 if 'purpose' not in kwargs.keys() and 'is_purpose' not in kwargs.keys():
                     data.plot.barh(title='Time spent on website for {}'.format(interval))
+                    self.plt.axvline(data.mean(), color='red', linewidth=2)
+                    self.plt.xlabel('Time spent')
+                    self.plt.ylabel('Websites')
+                    props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+                    summarization = 'Total: {} hours\nAverage: {} hours'.format(round(data.sum(), 2), round(data.mean(), 2))
+                    self.plt.text(0, -.5, summarization, fontsize=14,
+                        verticalalignment='top', bbox=props)
                 else:
                     if 'purpose' in kwargs.keys():
                         purpose = kwargs['purpose']
@@ -84,8 +93,15 @@ class Visualize:
                         data_of_purpose = self.pd.DataFrame.from_dict(data_of_purpose).transpose()
                         data_of_purpose.rename(columns={0: 'Time spent'}, inplace=True)
                         data_of_purpose = data_of_purpose.sort_values(by='Time spent')
-                        data_of_purpose = Visualize.trim(data_of_purpose)
+                        data_of_purpose = Visualizer.trim(data_of_purpose)
                         data_of_purpose.plot.barh(title='Time spent on websites for {} {}'.format(purpose, interval))
+                        self.plt.axvline(data_of_purpose['Time spent'].mean(), color='red', linewidth=2)
+                        self.plt.xlabel('Time spent')
+                        self.plt.ylabel('Websites')
+                        props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+                        summarization = 'Total: {} hours\nAverage: {} hours'.format(round(data_of_purpose['Time spent'].sum(), 2), round(data_of_purpose['Time spent'].mean(), 2))
+                        self.plt.text(0, -.5, summarization, fontsize=14,
+                            verticalalignment='top', bbox=props)
 
                     if 'is_purpose' in kwargs.keys():
                         websites = self.json.load(open('data/util_data.json', 'r'))['web store']
@@ -98,8 +114,13 @@ class Visualize:
                             data_by_purpose[purpose][0] += data.loc[title]
                         data_by_purpose = self.pd.DataFrame.from_dict(data_by_purpose).transpose()
                         data_by_purpose.rename(columns={0: 'Time spent'}, inplace=True)
-                        data_by_purpose = Visualize.trim(data_by_purpose)
-                        data_by_purpose.plot.pie(y='Time spent', autopct='%.2f%%', title='Time spent on websites by purpose {}'.format(interval))
+                        data_by_purpose = Visualizer.trim(data_by_purpose)
+                        data_by_purpose.plot.pie(y='Time spent', wedgeprops = dict(width=.3), autopct='%.2f%%', title='Time spent on websites by purpose {}'.format(interval))
+                        props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+                        summarization = 'Total: {} hours\nAverage: {} hours'.format(round(data_by_purpose['Time spent'].sum(), 2), round(data_by_purpose['Time spent'].mean(), 2))
+                        self.plt.text(0, -.5, summarization, fontsize=14,
+                            verticalalignment='top', bbox=props)
+                self.plt.show()
             except IOError as e:
                 print(e)
             except KeyError as e:
@@ -107,8 +128,18 @@ class Visualize:
             except Exception as e:
                 print(e)
         else: 
-            self.df.sum().sort_values().plot.barh(title="Time spent on websites all time")
-        self.plt.show()
+            data = self.df.copy()
+            del data['Day of Week']
+            data = data.sum().sort_values() / 3600
+            data.plot.barh(title="Time spent on websites all time")
+            self.plt.axvline(data.mean(), color='red', linewidth=2)
+            self.plt.xlabel('Time spent')
+            self.plt.ylabel('Websites')
+            props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+            summarization = 'Total: {} hours\nAverage: {} hours'.format(round(data.sum(),1), round(data.mean(), 2))
+            self.plt.text(0, -.5, summarization, fontsize=14,
+                verticalalignment='top', bbox=props)
+            self.plt.show()
 
     def by_basis(self, basis, activity):
         '''
@@ -126,25 +157,66 @@ class Visualize:
             'quarterly': 'Q',
             'yearly': 'Y'
         }
-        if basis not in available_basis.keys():
-            raise Exception('Not supported basis')
-        websites = self.json.load(open('data/util_data.json', 'r'))['web store']
-        websites_df = self.pd.DataFrame.from_dict(websites)
-        if activity in websites_df[['title', 'purpose']]:
-            raise Exception('Activity not found')
-        if (websites_df['purpose'] == activity).any():
-            activities = websites_df[websites_df['purpose'] == activity]['title'].tolist()
+        try:
+            if basis not in available_basis.keys():
+                raise Exception('Not a supported basis')
+            websites = self.json.load(open('data/util_data.json', 'r'))['web store']
+            websites_df = self.pd.DataFrame.from_dict(websites)
+            if activity in websites_df[['title', 'purpose']]:
+                raise Exception('Activity not found')
             data = self.df.copy()
+            del data['Day of Week']
             data.set_index('When', inplace=True)
-            data[activity] = data[activities].sum(axis=1)
-        data = data[activity].copy()  
-        grouped = data.groupby(self.pd.Grouper(freq=available_basis[basis]))
-        grouped.sum().plot.bar(title='Time spent on {} {}'.format(activity, basis))
-        self.plt.show()
+            if (websites_df['purpose'] == activity).any():
+                activities = websites_df[websites_df['purpose'] == activity]['title'].tolist()
+                data[activity] = data[activities].sum(axis=1)
+            data = data[activity] / 3600 
+            grouped = data.groupby(self.pd.Grouper(freq=available_basis[basis])).sum()
+            grouped.plot.bar(title='Time spent on {} {}'.format(activity, basis))
+            self.plt.axhline(grouped.mean(), color='red', linewidth=2)
+            props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+            summarization = 'Total: {} hours\nAverage: {} hours'.format(round(grouped.sum(), 2), round(grouped.mean(), 2))
+            self.plt.text(0, -.5, summarization, fontsize=14,
+                verticalalignment='top', bbox=props)
+            self.plt.show()
+
+        except Exception as e:
+            print(e)
+
+    def by_day_of_week(self, activity):
+        '''
+        Plot the user's requested activity on by day of week
+
+        Parameters:
+        ----------
+        activity: the activity to be plotted, can be a specific website or a purpose
+        '''
+        try:
+            websites = self.json.load(open('data/util_data.json', 'r'))['web store']
+            websites_df = self.pd.DataFrame.from_dict(websites)
+            if activity in websites_df[['title', 'purpose']]:
+                raise Exception('Activity not found')
+            data = self.df.copy()
+            data.set_index('Day of Week', inplace=True)
+            if (websites_df['purpose'] == activity).any():
+                activities = websites_df[websites_df['purpose'] == activity]['title'].tolist()
+                data[activity] = data[activities].sum(axis=1) 
+            data = data[activity] / 3600
+            self.plt.scatter(data.index, data)
+            self.plt.axhline(data.mean(), color='red', linewidth=2)
+            self.plt.xlabel('Day of week')
+            self.plt.ylabel('Time spent')
+            props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+            summarization = 'Total: {} hours\nAverage: {} hours'.format(round(data.sum(), 2), round(data.mean(), 2))
+            self.plt.text(0, -.5, summarization, fontsize=14,
+                verticalalignment='top', bbox=props)
+            self.plt.show()
+        except Exception as e:
+            print(e)
 
 # testing
 if __name__ == '__main__':
-    v = Visualize()
+    v = Visualizer()
     v.by_requests()
     v.by_requests(interval='past day')
     v.by_requests(interval='yesterday')
@@ -156,3 +228,4 @@ if __name__ == '__main__':
     v.by_basis('daily', 'social media')
     v.by_basis('monthly', 'facebook')
     v.by_basis('yearly', 'youtube')
+    v.by_day_of_week('social media')
