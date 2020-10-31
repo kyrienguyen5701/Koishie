@@ -56,12 +56,12 @@ class Visualizer:
                     interval = kwargs['interval']
                     defined_interval = {
                         'past day': 1,
-                        'past week': 8,
-                        'past two week': 15,
-                        'past month': 31,
-                        'past quarter': 92,
-                        'past six month': 183,
-                        'past year': 366,
+                        'past week': 7,
+                        'past two week': 14,
+                        'past month': 30,
+                        'past quarter': 91,
+                        'past six month': 182,
+                        'past year': 365,
                     }
                     if interval != 'all time':
                         end = defined_interval[interval]
@@ -69,7 +69,7 @@ class Visualizer:
                             raise Exception('No available data or not enough data')
                         elif data.shape[0] < defined_interval[interval]:
                             end = data.shape[0]
-                        data = data.loc[:end]
+                        data = data.loc[1:end]
                 
                 data = data.sum().sort_values() / 3600
                 if 'purpose' not in kwargs.keys() and 'is_purpose' not in kwargs.keys():
@@ -202,13 +202,13 @@ class Visualizer:
                 activities = websites_df[websites_df['purpose'] == activity]['title'].tolist()
                 data[activity] = data[activities].sum(axis=1) 
             data = data[activity] / 3600
-            self.plt.scatter(data.index, data)
+            self.plt.scatter(data.index, data, title='Time spent on {} activity by day of week')
             self.plt.axhline(data.mean(), color='red', linewidth=2)
             self.plt.xlabel('Day of week')
             self.plt.ylabel('Time spent')
             props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
             summarization = 'Total: {} hours\nAverage: {} hours'.format(round(data.sum(), 2), round(data.mean(), 2))
-            self.plt.text(0, -.5, summarization, fontsize=14,
+            self.plt.text(0, data.min() - .2, summarization, fontsize=14,
                 verticalalignment='top', bbox=props)
             self.plt.show()
         except Exception as e:
@@ -226,6 +226,4 @@ if __name__ == '__main__':
     v.by_requests(interval='past day', purpose='social media')
     v.by_requests(interval='past day', is_purpose=True)
     v.by_basis('daily', 'social media')
-    v.by_basis('monthly', 'facebook')
-    v.by_basis('yearly', 'youtube')
-    v.by_day_of_week('social media')
+    v.by_day_of_week('study')
