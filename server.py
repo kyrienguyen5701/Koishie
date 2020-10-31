@@ -34,6 +34,7 @@ def send_info():
 
     # time tracking
     when = datetime.now().strftime('%Y-%m-%d')
+    day_of_week = datetime.now().strftime('%A')
     start = int(time.time())
     detailed_start = datetime.now().strftime('%d %B, %Y, %I:%M %p')
     
@@ -92,7 +93,8 @@ def send_info():
         browsing_history.set_index('When', inplace=True)
         if not (browsing_history.index == when).any():
             browsing_history = browsing_history.iloc[::-1].append(pd.Series(0,name=when,index=browsing_history.columns), ignore_index=False)[::-1]
-        browsing_history.loc[when, previous_parent_title] += url_viewtime[previous_url]
+        browsing_history.loc[when, 'Day of Week'] = day_of_week
+        browsing_history.loc[when, previous_parent_title] += url_viewtime[previous_url] / 60
         browsing_history.to_csv(data_path['history'])
                 
     url_timestamp[parent_url] = start
