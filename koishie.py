@@ -5,8 +5,10 @@ import browser, dateNtime, greetings
 from music import MusicBot
 from selfie import selfie
 from translator import languages, trans
+import json
+from visualize import Visualizer
 
-version = '0.0.4'
+version = '0.0.5'
 
 # Speak Method will help us in taking the voice from the machine.
 def speak(audio):
@@ -22,12 +24,12 @@ def speak(audio):
 def take_query():
     speak(greetings.hello())
     while True:
-        # query = take_command().lower()
-        query = input('Type here: ')
-        if 'browser' in query or 'open' in query:
-            store = browser.web_store()
-            for web in store.keys():
-                print(store[web])
+        query = take_command().lower()
+        # for debugging
+        # query = input()
+        if 'browse' in query or 'open' in query:
+            store = browser.web_store
+            for web in store.index:
                 if web in query:
                     browser.browse(web)
                     break
@@ -59,6 +61,56 @@ def take_query():
             selfie()
             continue
 
+        # only allow one website or purpose at a time, for now
+        # get activity of whatever website she finds first
+        elif 'activity history' in query:
+            v = Visualizer()
+            activity, interval, purpose, basis = '','all time','',''
+            available_intervals = ('past day', 'past week', 'past two weeks', 'past month', 'past quarter',
+                'past six month', 'past year', 'all time')
+            for available_interval in available_intervals:
+                if available_interval in query:
+                    interval = available_interval
+            if 'by purpose' in query:
+                v.by_requests(interval=interval, is_purpose=True)
+            else:
+                store = browser.web_store
+                for web in store.index:
+                    if web not in query:
+                        if store.loc[web, 'purpose'] in query:
+                            purpose = store.loc[web, 'purpose']
+                    else:
+                        activity = web
+                        break
+                if 'by day of week' in query:
+                    if activity == '' and purpose == '':
+                        speak('Sorry, I cannot find the activity you requested.')
+                    else:
+                        if activity != '':
+                            v.by_day_of_week(activity)
+                        else:
+                            v.by_day_of_week(purpose)
+                else:
+                    available_bases = ('daily', 'weekly', 'monthly', 'quarterly','yearly')
+                    for available_basis in available_bases:
+                        if available_basis in query:
+                            basis = available_basis
+                            if activity == '' and purpose == '':
+                                speak('Sorry, I cannot find the activity you requested.')
+                            else:
+                                if activity != '':
+                                    v.by_basis(basis, activity)
+                                else:
+                                    v.by_basis(basis, purpose)
+                            break
+                    if basis == '':
+                        if purpose != '':
+                            v.by_requests(interval=interval, purpose=purpose)
+                        else:
+                            v.by_requests(interval=interval)
+                    else:
+                        continue
+                    
         elif 'translate' in query or 'translator' in query or 'translation' in query:
             speak('Tell me what language you want to translate to')
             trial = 0
