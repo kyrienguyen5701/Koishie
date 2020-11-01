@@ -36,7 +36,6 @@ class Visualizer:
         '''
         available_keys = ('interval', 'is_purpose', 'purpose')
         available_queries = {
-            # 'basis': ('daily', 'weekly', 'monthly', 'yearly'),
             'interval': ('past day', 'past week', 'past two weeks', 'past month', 'past quarter',
                 'past six month', 'past year', 'all time'),
             'purpose': ('work', 'entertainment', 'study', 'shopping', 'search', 'social media'),
@@ -150,7 +149,7 @@ class Visualizer:
         basis: the basis requested by the user
         activity: the activity to be plotted, can be a specific website or a purpose
         '''
-        available_basis = {
+        available_bases = {
             'daily': 'D',
             'weekly': 'W',
             'monthly': 'M',
@@ -158,7 +157,7 @@ class Visualizer:
             'yearly': 'Y'
         }
         try:
-            if basis not in available_basis.keys():
+            if basis not in available_bases.keys():
                 raise Exception('Not a supported basis')
             websites = self.json.load(open('data/util_data.json', 'r'))['web store']
             websites_df = self.pd.DataFrame.from_dict(websites)
@@ -171,7 +170,7 @@ class Visualizer:
                 activities = websites_df[websites_df['purpose'] == activity]['title'].tolist()
                 data[activity] = data[activities].sum(axis=1)
             data = data[activity] / 3600 
-            grouped = data.groupby(self.pd.Grouper(freq=available_basis[basis])).sum()
+            grouped = data.groupby(self.pd.Grouper(freq=available_bases[basis])).sum()
             grouped.plot.bar(title='Time spent on {} {}'.format(activity, basis))
             self.plt.axhline(grouped.mean(), color='red', linewidth=2)
             props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
@@ -197,12 +196,16 @@ class Visualizer:
             if activity in websites_df[['title', 'purpose']]:
                 raise Exception('Activity not found')
             data = self.df.copy()
+            weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            data['Day of Week'] = self.pd.Categorical(data['Day of Week'], categories=weekdays, ordered=True)
+            data = data.sort_values(by='Day of Week')  
             data.set_index('Day of Week', inplace=True)
             if (websites_df['purpose'] == activity).any():
                 activities = websites_df[websites_df['purpose'] == activity]['title'].tolist()
                 data[activity] = data[activities].sum(axis=1) 
             data = data[activity] / 3600
-            self.plt.scatter(data.index, data, title='Time spent on {} activity by day of week')
+            self.plt.scatter(data.index, data)
+            self.plt.title('Time spent on {} activity by day of week'.format(activity))
             self.plt.axhline(data.mean(), color='red', linewidth=2)
             self.plt.xlabel('Day of week')
             self.plt.ylabel('Time spent')
@@ -211,6 +214,7 @@ class Visualizer:
             self.plt.text(0, data.min() - .2, summarization, fontsize=14,
                 verticalalignment='top', bbox=props)
             self.plt.show()
+
         except Exception as e:
             print(e)
 
