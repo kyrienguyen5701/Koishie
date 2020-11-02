@@ -114,7 +114,7 @@ class Visualizer:
                         data_by_purpose = self.pd.DataFrame.from_dict(data_by_purpose).transpose()
                         data_by_purpose.rename(columns={0: 'Time spent'}, inplace=True)
                         data_by_purpose = Visualizer.trim(data_by_purpose)
-                        data_by_purpose.plot.pie(y='Time spent', wedgeprops = dict(width=.3), autopct='%.2f%%', title='Time spent on websites by purpose {}'.format(interval))
+                        data_by_purpose.plot.pie(y='Time spent', wedgeprops = dict(width=.3), autopct='%.2f%%', labels=None, title='Time spent on websites by purpose {}'.format(interval))
                         props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
                         summarization = 'Total: {} hours\nAverage: {} hours'.format(round(data_by_purpose['Time spent'].sum(), 2), round(data_by_purpose['Time spent'].mean(), 2))
                         self.plt.text(0, -.5, summarization, fontsize=14,
