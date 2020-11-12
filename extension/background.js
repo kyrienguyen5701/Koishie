@@ -1,15 +1,17 @@
 // whenever a new tab is opened on the browser window
 chrome.tabs.onActivated.addListener(activeInfo => {
-    chrome.tabs.get(activeInfo.tabId, tab => {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = () => {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
-            }
-        };
-        xhr.open("POST", "http://127.0.0.1:5000/send_info");
-        xhr.send(`title=${tab.title}&url=${tab.url}`);
-    });
+    setTimeout(() => {
+        chrome.tabs.get(activeInfo.tabId, tab => {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () => {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                }
+            };
+            xhr.open("POST", "http://127.0.0.1:5000/send_info");
+            xhr.send(`title=${tab.title}&url=${tab.url}`);
+        });
+    }, 2000)    
 });
 
 // whenever the user switches between tabs
